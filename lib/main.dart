@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
-import 'package:myapp/home.dart';
-import 'package:myapp/settings.dart';
+import 'package:booklette/navigation/scaffold_with_navigation_bar.dart';
+import 'package:booklette/navigation/scaffold_with_navigation_rail.dart';
+import 'package:booklette/pages/home.dart';
+import 'package:booklette/settings.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
-final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
+final _shellNavigatorAKey =
+    GlobalKey<NavigatorState>(debugLabel: "shell$homeRouteName");
+final _shellNavigatorBKey =
+    GlobalKey<NavigatorState>(debugLabel: "shell$settingsRouteName");
 
 final goRouter = GoRouter(
-  initialLocation: '/a',
+  initialLocation: homeRoutePath,
   // * Passing a navigatorKey causes an issue on hot reload:
   // * https://github.com/flutter/flutter/issues/113757#issuecomment-1518421380
   // * However it's still necessary otherwise the navigator pops back to
@@ -30,7 +34,7 @@ final goRouter = GoRouter(
           navigatorKey: _shellNavigatorAKey,
           routes: [
             GoRoute(
-              path: '/a',
+              path: homeRoutePath,
               pageBuilder: (context, state) => const NoTransitionPage(
                 // child: RootScreen(label: 'A', detailsPath: '/a/details'),
                 child: Home(),
@@ -49,7 +53,7 @@ final goRouter = GoRouter(
           routes: [
             // Shopping Cart
             GoRoute(
-              path: '/b',
+              path: settingsRoutePath,
               pageBuilder: (context, state) => const NoTransitionPage(
                 // child: RootScreen(label: 'B', detailsPath: '/b/details'),
                 child: SettingsPage(),
@@ -71,11 +75,11 @@ final goRouter = GoRouter(
 void main() {
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
-  runApp(const MyApp());
+  runApp(const booklette());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class booklette extends StatelessWidget {
+  const booklette({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -128,83 +132,6 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   }
 }
 
-class ScaffoldWithNavigationBar extends StatelessWidget {
-  const ScaffoldWithNavigationBar({
-    super.key,
-    required this.body,
-    required this.selectedIndex,
-    required this.onDestinationSelected,
-  });
-  final Widget body;
-  final int selectedIndex;
-  final ValueChanged<int> onDestinationSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: body,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: selectedIndex,
-        destinations: const [
-          NavigationDestination(
-            label: homeRouteName,
-            icon: Icon(homeRouteIcon),
-          ),
-          NavigationDestination(
-            label: settingsRouteName,
-            icon: Icon(settingsRouteIcon),
-          ),
-        ],
-        onDestinationSelected: onDestinationSelected,
-      ),
-    );
-  }
-}
-
-class ScaffoldWithNavigationRail extends StatelessWidget {
-  const ScaffoldWithNavigationRail({
-    super.key,
-    required this.body,
-    required this.selectedIndex,
-    required this.onDestinationSelected,
-  });
-  final Widget body;
-  final int selectedIndex;
-  final ValueChanged<int> onDestinationSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
-        children: [
-          NavigationRail(
-            selectedIndex: selectedIndex,
-            onDestinationSelected: onDestinationSelected,
-            labelType: NavigationRailLabelType.all,
-            destinations: const <NavigationRailDestination>[
-              NavigationRailDestination(
-                // label: Text(homeRouteName),
-                label: Text(homeRouteName),
-                icon: Icon(homeRouteIcon),
-              ),
-              NavigationRailDestination(
-                label: Text(settingsRouteName),
-                icon: Icon(settingsRouteIcon),
-              ),
-            ],
-          ),
-          const VerticalDivider(thickness: 1, width: 1),
-          // This is the main content.
-          Expanded(
-            child: body,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Widget for the root/initial pages in the bottom navigation bar.
 class RootScreen extends StatelessWidget {
   /// Creates a RootScreen
   const RootScreen({required this.label, required this.detailsPath, Key? key})

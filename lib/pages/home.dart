@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'components/search.dart';
+import '../components/search.dart';
 
 const homeRouteName = 'Home';
 const homeRouteIcon = Icons.home;
+const homeRoutePath = '/home';
 
 class Home extends StatefulWidget {
   const Home({
