@@ -6,16 +6,16 @@ const homeRouteName = 'Home';
 const homeRouteIcon = Icons.home;
 const homeRoutePath = '/home';
 
-class Home extends StatefulWidget {
-  const Home({
+class HomePage extends StatefulWidget {
+  const HomePage({
     super.key,
   });
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,10 +23,12 @@ class _HomeState extends State<Home> {
         onPressed: () {},
         child: const Icon(Icons.add),
       ),
-      body: const Column(
-        children: [
-          Search(),
-        ],
+      body: const Center(
+        child: Column(
+          children: [
+            Search(),
+          ],
+        ),
       ),
     );
   }

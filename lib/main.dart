@@ -5,7 +5,7 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:booklette/navigation/scaffold_with_navigation_bar.dart';
 import 'package:booklette/navigation/scaffold_with_navigation_rail.dart';
 import 'package:booklette/pages/home.dart';
-import 'package:booklette/settings.dart';
+import 'package:booklette/pages/settings.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -37,7 +37,7 @@ final goRouter = GoRouter(
               path: homeRoutePath,
               pageBuilder: (context, state) => const NoTransitionPage(
                 // child: RootScreen(label: 'A', detailsPath: '/a/details'),
-                child: Home(),
+                child: HomePage(),
               ),
               routes: [
                 GoRoute(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:booklette/pages/home.dart';
-import 'package:booklette/settings.dart';
+import 'package:booklette/pages/settings.dart';
 
 class ScaffoldWithNavigationBar extends StatelessWidget {
   const ScaffoldWithNavigationBar({
