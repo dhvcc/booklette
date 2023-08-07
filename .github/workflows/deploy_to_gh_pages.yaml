@@ -46,27 +46,27 @@ jobs:
   #       name: ios-build
   #       path: build/ios/iphoneos
 
-  build_apk:
-    name: Build Flutter (Android)
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-java@v1
-      with:
-        java-version: '12.x'
-    - uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.10.6'
-        channel: 'stable'
-    - run: flutter pub get
-#     - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
-#     - run: flutter build appbundle --target-platform android-arm,android-arm64
-    - run: flutter build appbundle
-    - name: Upload APK
-      uses: actions/upload-artifact@master
-      with:
-        name: apk-build
-        path: build/app/outputs/bundle/release/app-release.aab
+#   build_apk:
+#     name: Build Flutter (Android)
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v3
+#     - uses: actions/setup-java@v1
+#       with:
+#         java-version: '12.x'
+#     - uses: subosito/flutter-action@v2
+#       with:
+#         flutter-version: '3.10.6'
+#         channel: 'stable'
+#     - run: flutter pub get
+# #     - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
+# #     - run: flutter build appbundle --target-platform android-arm,android-arm64
+#     - run: flutter build appbundle
+#     - name: Upload APK
+#       uses: actions/upload-artifact@master
+#       with:
+#         name: apk-build
+#         path: build/app/outputs/bundle/release/app-release.aab
 
   deploy_web:
     name: Deploy Web to Firebase Hosting
