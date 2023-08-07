@@ -1,3 +1,4 @@
+import 'package:booklette/components/book_list/book_list.dart';
 import 'package:flutter/material.dart';
 
 import '../components/search.dart';
@@ -23,12 +24,11 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {},
         child: const Icon(Icons.add),
       ),
-      body: const Center(
-        child: Column(
-          children: [
-            Search(),
-          ],
-        ),
+      body: Column(
+        children: [
+          Center(child: Search()),
+          BookList(),
+        ],
       ),
     );
   }
