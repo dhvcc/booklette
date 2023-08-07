@@ -19,11 +19,11 @@ jobs:
     - run: flutter pub get
     - run: flutter config --enable-web
     - run: flutter build web --no-tree-shake-icons
-    # - name: Archive Production Artifact
-    #   uses: actions/upload-artifact@master
-    #   with:
-    #     name: web-build
-    #     path: build/web
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: web-build
+        path: build/web
 
   # build_ios:
   #   name: Build Flutter (iOS)
