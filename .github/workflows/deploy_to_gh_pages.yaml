@@ -1,16 +1,87 @@
-name: Deploy app to github pages
+name: CI
 
 on:
   push:
-    branches: [ master ]
-
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 jobs:
-  build:
+  build_web:
+    name: Build Flutter (Web)
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2 # Only works with v2
-      - uses: subosito/flutter-action@v1
-      - uses: bluefireteam/flutter-gh-pages@v7
+    - uses: actions/checkout@v1
+    - uses: subosito/flutter-action@v1
+      with:
+          channel: 'dev'
+    - run: flutter pub get
+    - run: flutter config --enable-web
+    - run: flutter build web
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: web-build
+        path: build/web
+
+  # build_ios:
+  #   name: Build Flutter (iOS)
+  #   runs-on: macOS-latest
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - uses: actions/setup-java@v1
+  #     with:
+  #       java-version: '12.x'
+  #   - uses: subosito/flutter-action@v1
+  #     with:
+  #         channel: 'dev'
+  #   - run: flutter pub get
+  #   - run: flutter clean
+  #   - run: flutter build ios --release --no-codesign
+  #   - name: Upload iPA
+  #     uses: actions/upload-artifact@master
+  #     with:
+  #       name: ios-build
+  #       path: build/ios/iphoneos
+
+  build_apk:
+    name: Build Flutter (Android)
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+          channel: 'dev'
+    - run: flutter pub get
+#     - run: flutter build apk --target-platform android-arm,android-arm64 --split-per-abi
+#     - run: flutter build appbundle --target-platform android-arm,android-arm64
+    - run: flutter build appbundle
+    - name: Upload APK
+      uses: actions/upload-artifact@master
+      with:
+        name: apk-build
+        path: build/app/outputs/apk/release
+
+  deploy_web:
+    name: Deploy Web to Firebase Hosting
+    needs: build_web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Download Artifact
+        uses: actions/download-artifact@master
         with:
-          baseHref: '/booklette/'
+          name: web-build
+          path: web-build
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting --public web-build
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          PROJECT_ID: default
