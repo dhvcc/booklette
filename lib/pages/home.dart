@@ -1,6 +1,7 @@
 import 'package:booklette/components/book_list/book_list.dart';
 import 'package:flutter/material.dart';
 
+import '../components/add_fab.dart';
 import '../components/search.dart';
 
 const homeRouteName = 'Home';
@@ -19,11 +20,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
+    return const Scaffold(
+      floatingActionButton: AddFAB(),
       body: Column(
         children: [
           Center(child: Search()),
