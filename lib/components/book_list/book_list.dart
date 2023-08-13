@@ -1,8 +1,14 @@
 import 'package:booklette/components/book_list/book_tile.dart';
+import 'package:epub_view/epub_view.dart';
 import 'package:flutter/material.dart';
 
 class BookList extends StatelessWidget {
-  const BookList({super.key});
+  final List<EpubBook> books;
+
+  const BookList({
+    super.key,
+    required this.books,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +18,7 @@ class BookList extends StatelessWidget {
         child: ScrollConfiguration(
           behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
           child: GridView.builder(
-            itemCount: 5,
+            itemCount: books.length,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
               childAspectRatio: 1410 / 2250,
@@ -20,7 +26,7 @@ class BookList extends StatelessWidget {
               crossAxisSpacing: 20.0,
               mainAxisSpacing: 20.0,
             ),
-            itemBuilder: (context, index) => const BookTile(),
+            itemBuilder: (context, index) => BookTile(data: books[index]),
           ),
         ),
       ),

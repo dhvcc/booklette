@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../components/add_fab.dart';
 import '../components/search.dart';
+import '../state/store.dart';
 
 const homeRouteName = 'Home';
 const homeRouteIcon = Icons.home;
@@ -20,12 +21,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      floatingActionButton: AddFAB(),
+    return Scaffold(
+      floatingActionButton: const AddFAB(),
       body: Column(
         children: [
-          Center(child: Search()),
-          BookList(),
+          const Center(child: Search()),
+          ValueListenableBuilder(
+            valueListenable: books,
+            builder: (context, value, widget) => BookList(books: value),
+          ),
         ],
       ),
     );

@@ -1,7 +1,14 @@
+import 'package:booklette/components/book_list/book_cover.dart';
+import 'package:epub_view/epub_view.dart' as e;
 import 'package:flutter/material.dart';
 
 class BookTile extends StatelessWidget {
-  const BookTile({super.key});
+  final e.EpubBook data;
+
+  const BookTile({
+    super.key,
+    required this.data,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +19,16 @@ class BookTile extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 10),
-            const Text(
-              'The Stranger',
-              style: TextStyle(
+            Text(
+              data.Title ?? 'No Title',
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
             ),
             const SizedBox(height: 10),
-            Image.network(
-              'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1590930002i/49552.jpg',
-              fit: BoxFit.fill,
-            ),
+            BookCover(image: data.CoverImage),
+            // cover,
           ],
         ),
       ),

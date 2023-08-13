@@ -1,5 +1,7 @@
-import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:booklette/state/actions.dart';
+import 'package:epub_view/epub_view.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +10,11 @@ class AddFAB extends StatelessWidget {
 
   onTap() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
-    var path = result?.files.single.path;
+    Uint8List? data = result?.files.single.bytes;
 
-    if (path != null) {
-      return File(path);
+    if (data != null) {
+      EpubBook book = await EpubDocument.openData(data);
+      addBook(book);
     } else {
       return null;
     }

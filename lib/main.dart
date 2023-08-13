@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-// ignore: depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:booklette/navigation/scaffold_with_navigation_bar.dart';
 import 'package:booklette/navigation/scaffold_with_navigation_rail.dart';
@@ -75,11 +74,11 @@ final goRouter = GoRouter(
 void main() {
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
-  runApp(const booklette());
+  runApp(const Booklette());
 }
 
-class booklette extends StatelessWidget {
-  const booklette({super.key});
+class Booklette extends StatelessWidget {
+  const Booklette({super.key});
 
   @override
   Widget build(BuildContext context) {

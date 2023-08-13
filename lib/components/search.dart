@@ -21,7 +21,6 @@ class Search extends StatelessWidget {
             onTap: () => _dialogBuilder(context),
             child: const CircleAvatar(
               child: Icon(Icons.account_circle_outlined),
-              // NetworkImage("https://avatars.githubusercontent.com/u/18076967?s=400&u=08866517cccf3561cdc31f0328b3ca7ab8d4add8&v=4"),
             ),
           )
         ],
@@ -33,7 +32,7 @@ class Search extends StatelessWidget {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AccountDialog();
+        return const AccountDialog();
       },
     );
   }
