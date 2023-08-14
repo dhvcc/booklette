@@ -1,7 +1,7 @@
 # Booklette [WIP]
 
 <p align="center">
-    <img height="128px" width="128px" src="https://github.com/dhvcc/booklette/assets/18076967/73edbd13-b5c4-4f24-bb0a-9ea318d70003" />
+    <img height="128px" width="128px" src="./assets/icon/book.png" />
 </p>
 
 A, hopefully to become, a nice cross-platform flutter-based EPUB (and, once again, hopefully, general book) reader.
