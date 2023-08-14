@@ -1,16 +1,14 @@
-# booklette
+# Booklette [WIP]
 
-A new Flutter project.
+<p align="center">
+    <img height="128px" width="128px" src="https://github.com/dhvcc/booklette/assets/18076967/73edbd13-b5c4-4f24-bb0a-9ea318d70003" />
+</p>
 
-## Getting Started
+A, hopefully to become, a nice cross-platform flutter-based EPUB (and, once again, hopefully, general book) reader.
 
-This project is a starting point for a Flutter application.
+Currently developed for WEB with PWA using only material
 
-A few resources to get you started if this is your first Flutter project:
+## Preview (14.08.2023)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+![preview](https://github.com/dhvcc/booklette/assets/18076967/d3536946-e748-41ab-9cf9-07fc3b2954a8)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
