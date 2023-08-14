@@ -1,3 +1,4 @@
+import 'package:booklette/pages/read.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -8,10 +9,12 @@ import 'package:booklette/pages/settings.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorAKey =
+final _shellNavigatorHomeKey =
     GlobalKey<NavigatorState>(debugLabel: "shell$homeRouteName");
-final _shellNavigatorBKey =
+final _shellNavigatorSettingsKey =
     GlobalKey<NavigatorState>(debugLabel: "shell$settingsRouteName");
+final _shellNavigatorReadKey =
+    GlobalKey<NavigatorState>(debugLabel: "shell$readRouteName");
 
 final goRouter = GoRouter(
   initialLocation: homeRoutePath,
@@ -30,39 +33,40 @@ final goRouter = GoRouter(
       },
       branches: [
         StatefulShellBranch(
-          navigatorKey: _shellNavigatorAKey,
+          navigatorKey: _shellNavigatorHomeKey,
           routes: [
             GoRoute(
               path: homeRoutePath,
               pageBuilder: (context, state) => const NoTransitionPage(
-                // child: RootScreen(label: 'A', detailsPath: '/a/details'),
                 child: HomePage(),
               ),
-              routes: [
-                GoRoute(
-                  path: 'details',
-                  builder: (context, state) => const DetailsScreen(label: 'A'),
-                ),
-              ],
             ),
           ],
         ),
         StatefulShellBranch(
-          navigatorKey: _shellNavigatorBKey,
+          navigatorKey: _shellNavigatorSettingsKey,
           routes: [
-            // Shopping Cart
             GoRoute(
               path: settingsRoutePath,
               pageBuilder: (context, state) => const NoTransitionPage(
                 // child: RootScreen(label: 'B', detailsPath: '/b/details'),
                 child: SettingsPage(),
               ),
-              routes: [
-                GoRoute(
-                  path: 'details',
-                  builder: (context, state) => const DetailsScreen(label: 'B'),
-                ),
-              ],
+              // routes: [
+              //   GoRoute(
+              //     path: 'details',
+              //     builder: (context, state) => const DetailsScreen(label: 'B'),
+              //   ),
+              // ],
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _shellNavigatorReadKey,
+          routes: [
+            GoRoute(
+              path: readRoutePath,
+              builder: (context, state) => ReadPage(data: state.extra),
             ),
           ],
         ),
@@ -114,6 +118,11 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
+      if (navigationShell.currentIndex > 1) {
+        return Scaffold(
+          body: navigationShell,
+        );
+      }
       if (constraints.maxWidth < 450) {
         return ScaffoldWithNavigationBar(
           body: navigationShell,
