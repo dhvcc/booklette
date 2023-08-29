@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AccountDialog extends StatelessWidget {
   const AccountDialog({super.key});
+
+  void signInWithGoogle() async {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    try {
+      final GoogleSignInAccount? account = await googleSignIn.signIn();
+      print("Authenticated!!! $account");
+      // onSignInSuccessful(account!); // Replace this with your desired logic after successful sign in
+    } catch (error) {
+      print("Failed to sign in with Google: $error");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +40,9 @@ class AccountDialog extends StatelessWidget {
                 children: [
                   InkWell(
                     borderRadius: BorderRadius.circular(20),
-                    onTap: () {},
-                    child: const ListTile(
+                    // onTap: _handleSignIn,
+                    onTap: signInWithGoogle,
+                    child: ListTile(
                       leading: Icon(Icons.account_circle_outlined),
                       title: Text("Sign In"),
                     ),
@@ -45,33 +58,6 @@ class AccountDialog extends StatelessWidget {
                 ],
               ),
             )
-            // Center(
-            //   widthFactor: 3,
-            //   child: Column(
-            //     children: [
-            //       const Row(
-            //         mainAxisSize: MainAxisSize.min,
-            //         children: [
-            //           Icon(Icons.account_circle_outlined),
-            //           Center(
-            //             widthFactor: 3,
-            //             child: Text("Sign in"),
-            //           ),
-            //         ],
-            //       ),
-            //       const Row(
-            //         mainAxisSize: MainAxisSize.min,
-            //         children: [
-            //           Icon(Icons.close),
-            //           Center(
-            //             widthFactor: 3,
-            //             child: Text("Settings"),
-            //           ),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

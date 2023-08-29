@@ -1,6 +1,5 @@
 import 'package:epub_view/epub_view.dart';
 import 'package:booklette/state/store.dart';
-import 'package:epub_view/epub_view.dart';
 import 'package:flutter/material.dart';
 
 const readRouteName = 'Read';
@@ -23,10 +22,7 @@ class _ReadPageState extends State<ReadPage> {
   void initState() {
     super.initState();
     _epubController = EpubController(
-      // Load document
       document: Future.value(widget.data),
-      // Set start point
-      // epubCfi: 'epubcfi(/6/6[chapter-2]!/4/2/1612)',
     );
   }
 
